@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 html {
-    background-image: linear-gradient(to right, #0F3443, #34E89E)
+    background-image: linear-gradient(to right, #0F3443, #34E89E);
+    
 }
 .website-container {
-    background-image: linear-gradient(to right, #0F3443, #34E89E)
-    
+    background-image: linear-gradient(to right, #0F3443, #34E89E);
+    height: 100%;    
 }
 
 .navbar-list{
@@ -22,6 +25,7 @@ html {
 }
 
 .navbar-element {
+    font-family: 'Montserrat', sans-serif;
     color: white;
     font-size: 2em;
     font-weight: bold;

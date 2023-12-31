@@ -1,0 +1,19 @@
+.index-content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+.app-choice {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    background-color: transparent;
+    border-style: solid;
+    border-color: white;
+    border-radius: 10px;
+    width: 15%;
+    height: 5%;
+    
+}

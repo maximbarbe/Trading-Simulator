@@ -52,16 +52,17 @@ def index():
     return render_template("index.html", user = user)
 
 
-
-@app.route("/register")
+# Register route
+@app.route("/register", methods=["GET", "POST"])
 def register():
     return "<b>Register Page</b>"
 
-
-@app.route("/login")
+# Login route
+@app.route("/login", methods=["GET", "POST"])
 def login():
     return "<b>Login Page</b>"
 
+# Logout route
 @app.route("/logout")
 def logout():
 
