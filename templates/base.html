@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css')}}" />
+    {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="website-container">
+        <header class="navbar">
+            <ul class="navbar-list">
+                <li class="navbar-li">
+                    <a class="navbar-element" href="{{url_for('index')}}">Home</a>
+                </li>
+                {% if not user %}
+                <li class="navbar-li">
+                    <a class="navbar-element" >Register</a>
+                </li>
+                <li class="navbar-li">
+                    <a class="navbar-element">Login</a>
+                </li>
+                {% else %}
+                <li class="navbar-li">
+                    <a class="navbar-element">Welcome back {{user.name}}</a>
+                </li>
+                <li class="navbar-li">
+                    <a class="navbar-element">
+                        Logout
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </header>
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>
