@@ -62,4 +62,7 @@ def register():
 def login():
     return "<b>Login Page</b>"
 
-@app.route("/trade")
+@app.route("/logout")
+def logout():
+
+    return redirect("/")

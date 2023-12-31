@@ -17,17 +17,17 @@
                 </li>
                 {% if not user %}
                 <li class="navbar-li">
-                    <a class="navbar-element" >Register</a>
+                    <a class="navbar-element" href="{{url_for('register')}}">Register</a>
                 </li>
                 <li class="navbar-li">
-                    <a class="navbar-element">Login</a>
+                    <a class="navbar-element" href="{{url_for('login')}}">Login</a>
                 </li>
                 {% else %}
                 <li class="navbar-li">
                     <a class="navbar-element">Welcome back {{user.name}}</a>
                 </li>
                 <li class="navbar-li">
-                    <a class="navbar-element">
+                    <a class="navbar-element" href="{{url_for('logout')}}">
                         Logout
                     </a>
                 </li>
