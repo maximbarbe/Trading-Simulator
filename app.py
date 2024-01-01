@@ -1,9 +1,10 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_wtf import CSRFProtect
 from dotenv import dotenv_values
 from markupsafe import escape
-
+from flask_bootstrap import Bootstrap
+from forms import RegisterForm
 # Initialisation of a user
 user = None
 # Get secret key from environment variables
@@ -14,7 +15,16 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./project.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIOBS'] = False
 app.secret_key = env_values['SECRET']
+
+# Database configuration
 db = SQLAlchemy(app)
+
+# Configuration for flask bootstrap
+bootstrap = Bootstrap(app)
+
+# Configuration for csrf protection
+csrf = CSRFProtect(app)
+
 
 
 # Database model for a single user
@@ -55,7 +65,10 @@ def index():
 # Register route
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    return "<b>Register Page</b>"
+
+    register_form = RegisterForm()
+    
+    return render_template('register.html', form = register_form)
 
 # Login route
 @app.route("/login", methods=["GET", "POST"])
