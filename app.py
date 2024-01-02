@@ -6,6 +6,10 @@ from markupsafe import escape
 from forms import userForm
 # Initialisation of a user
 user = None
+
+# Give admin privileges
+admin = False
+
 # Get secret key from environment variables
 env_values = dotenv_values(".env")
 
@@ -62,11 +66,13 @@ def index():
 # Register route
 @app.route("/register", methods=["GET", "POST"])
 def register():
-
-    register_form = userForm()
+    register_form = userForm(request.form)
+    if request.method == "POST" and register_form.validate():
+        print("okay")
+    return render_template("register.html", form=register_form)
     
 
-    return render_template('register.html', form = register_form)
+    
 
 # Login route
 @app.route("/login", methods=["GET", "POST"])
