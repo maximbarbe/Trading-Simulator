@@ -15,21 +15,21 @@
         <header class="navbar">
             <ul class="navbar-list">
                 <li class="navbar-li">
-                    <a class="navbar-element" href="{{url_for('index')}}">Home</a>
+                    <a class="navbar-element" href="{{url_for('routes.index')}}">Home</a>
                 </li>
                 {% if not user %}
                 <li class="navbar-li">
-                    <a class="navbar-element" href="{{url_for('register')}}">Register</a>
+                    <a class="navbar-element" href="{{url_for('routes.register')}}">Register</a>
                 </li>
                 <li class="navbar-li">
-                    <a class="navbar-element" href="{{url_for('login')}}">Login</a>
+                    <a class="navbar-element" href="{{url_for('routes.login')}}">Login</a>
                 </li>
                 {% else %}
                 <li class="navbar-li">
                     <a class="navbar-element">Welcome back {{user.name}}</a>
                 </li>
                 <li class="navbar-li">
-                    <a class="navbar-element" href="{{url_for('logout')}}">
+                    <a class="navbar-element" href="{{url_for('routes.logout')}}">
                         Logout
                     </a>
                 </li>

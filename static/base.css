@@ -15,6 +15,10 @@ html {
     list-style: none;
     padding: 0;
     padding: 1.5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .navbar-li {
