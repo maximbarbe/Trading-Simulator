@@ -3,8 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from dotenv import dotenv_values
 from markupsafe import escape
-from flask_bootstrap import Bootstrap
-from forms import RegisterForm
+from forms import userForm
 # Initialisation of a user
 user = None
 # Get secret key from environment variables
@@ -19,8 +18,6 @@ app.secret_key = env_values['SECRET']
 # Database configuration
 db = SQLAlchemy(app)
 
-# Configuration for flask bootstrap
-bootstrap = Bootstrap(app)
 
 # Configuration for csrf protection
 csrf = CSRFProtect(app)
@@ -66,8 +63,9 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
-    register_form = RegisterForm()
+    register_form = userForm()
     
+
     return render_template('register.html', form = register_form)
 
 # Login route

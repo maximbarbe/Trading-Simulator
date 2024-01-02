@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
+
 {% block title %} Register {% endblock %}
 {% block content %}
-    
+    <form method="POST" action="/register" class="form-container">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {% if field.widget.input_type != 'hidden' %}
+                <div class="form-row">
+                    {{ field(placeholder=field.description) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </form>
 {% endblock %}
