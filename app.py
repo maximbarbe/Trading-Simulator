@@ -1,23 +1,26 @@
 from flask import Flask, render_template, url_for, request, redirect, session
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
-from dotenv import dotenv_values
+from config import Config
 from markupsafe import escape
 from forms import userForm
+
+
 # Initialisation of a user
 user = None
 
 # Give admin privileges
 admin = False
 
-# Get secret key from environment variables
-env_values = dotenv_values(".env")
 
 # App configuration
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./project.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIOBS'] = False
-app.secret_key = env_values['SECRET']
+app.config.from_object(Config)
+
+
+# Setup login manager
+login_manager = LoginManager(app)
 
 # Database configuration
 db = SQLAlchemy(app)
@@ -27,15 +30,28 @@ db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
 
 
-
 # Database model for a single user
 class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(100), nullable = False)
     password = db.Column(db.String(255), nullable = False)
+    authenticated = db.Column(db.Boolean, default=False)
     trades = db.relationship('Trade', backref='user')
+    
 
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.id
+    
+    def is_authenticated(self):
+        return self.authenticated
+
+    def is_anonymous(self):
+        return False
+    
     def __repr__(self):
         return f"<User> {self.name}"
 
@@ -52,9 +68,13 @@ class Trade(db.Model):
         return f"<Trade> {'Buy' if self.buy_or_sell == 'buy' else 'Sell'} {self.ticker} at {self.price} {self.currency}"
 
 
-# with app.app_context():
-#     db.create_all()
+# User loader callback
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
+with app.app_context():
+    db.create_all()
 
 # Base route when someone joins the server
 @app.route("/")
@@ -82,5 +102,5 @@ def login():
 # Logout route
 @app.route("/logout")
 def logout():
-
+    
     return redirect("/")

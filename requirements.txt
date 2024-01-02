@@ -1,0 +1,2 @@
+Werkzeug==0.16.0
+WTForms==3.0.1
