@@ -24,9 +24,7 @@
     transition: .4s background-color ease-in-out;
     
 }
-.app-choice:hover::before{
-    background-color: white;
-}
+
 .app-choice:hover {
     background-color: white;
     color: #0F3443
