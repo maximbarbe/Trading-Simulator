@@ -1,14 +1,11 @@
 from flask import Flask, render_template, redirect, request
-from forms import registerForm
+from forms import RegisterForm, LoginForm
 from flask_wtf import CSRFProtect
 from flask_bcrypt import Bcrypt, generate_password_hash
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager, login_required, current_user
 from config import Config
 from models import User, Trade
 from database import db
-
-# Initialisation of a user
-user = None
 
 # Give admin privileges
 admin = False
@@ -30,13 +27,13 @@ def load_user(user_id):
 @app.route("/")
 def index():
 
-    return render_template("index.html", user = user)
+    return render_template("index.html")
 
 
 # Register route, will handle register form.
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    register_form = registerForm(request.form)
+    register_form = RegisterForm(request.form)
     if request.method == "POST" and register_form.validate():
         # All verifications needed to make sure the data is valid
         if (register_form.check_email_equal(register_form.email.data, register_form.confirm_email.data) and
@@ -60,7 +57,10 @@ def register():
 # Login route, will add the user to the session and redirect to base directory
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return "<b>Login Page</b>"
+    login_form = LoginForm(request.form)
+    if request.method == "POST" and login_form.validate_on_submit():
+        print("Login form submitted")
+    return render_template("login.html", form=login_form)
 
 # Logout route, will remove the user from the session and redirect to base directory
 

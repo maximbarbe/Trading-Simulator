@@ -8,12 +8,13 @@
     <div class="container">
 
         <form method="POST" action="/register" class="form-container" autocomplete="off" autocapitalize="off">
+            <b class="form-header">Register</b>
             {{ form.hidden_tag() }}
             {% for field in form %}
 
                 {% if field.widget.input_type != 'hidden' %}
                     <div class="form-row">
-                        {{ field(placeholder=field.description, class_="register-input") }}
+                        {{ field(placeholder=field.description, class_="form-input") }}
                     </div>
                 {% endif %}
                 {% for error in field.errors %}

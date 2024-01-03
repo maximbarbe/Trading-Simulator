@@ -23,7 +23,7 @@
     height: 10%;
 }
 
-.register-input{
+.form-input{
     border: 0.1em solid white;
     border-width: 0.2em;
     background-color: transparent;
@@ -33,12 +33,13 @@
     height: 75%;    
 }
 
-.register-input::placeholder {
+.form-input::placeholder {
     color: white;
     opacity: 0.5;
+    font-size: 1em;
 }
 
-.register-input:focus {
+.form-input:focus {
     outline: none !important;
 }
 
@@ -72,4 +73,12 @@
     height: 100%;
     display: flex;
     justify-content: space-around;
+}
+
+.form-header {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 3em;
+    padding-bottom: 2%;
 }

@@ -15,7 +15,7 @@ email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z
 password_regex = re.compile(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")
 
 # Form used for the register page
-class registerForm(FlaskForm):
+class RegisterForm(FlaskForm):
     name = StringField(label="Name", description="Name")
     email = StringField(label="Email", description="Email")
     confirm_email = StringField(label="confirm_email", description="Confirm email")

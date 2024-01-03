@@ -1,2 +1,25 @@
 {% extends 'base.html' %}
 {% block title %} Login {% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}" />
+{% endblock %}
+{% block content %}
+    <div class="container">
+        
+        <form method="POST" action="/login" class="form-container" autocomplete="off" autocapitalize="off">
+            <b class="form-header">Login</b>
+            {{ form.hidden_tag() }}
+            {% for field in form %}
+
+                {% if field.widget.input_type != 'hidden' %}
+                    <div class="form-row">
+                        {{ field(placeholder=field.description, class_="form-input") }}
+                    </div>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="form-error"><p class="error">{{error}}</p></div>
+                {% endfor %}
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}
