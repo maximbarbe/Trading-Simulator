@@ -32,7 +32,11 @@ def index():
 def register():
     register_form = registerForm(request.form)
     if request.method == "POST" and register_form.validate():
-        return redirect("/")
+        if (register_form.check_email_equal(register_form.email.data, register_form.confirm_email.data) and
+            register_form.check_name_length(register_form.name.data) and register_form.check_email_length(register_form.email.data) and
+            register_form.check_password_length(register_form.password.data) and register_form.check_valid_email(register_form.email.data) and
+            register_form.check_valid_password(register_form.password.data)):
+            return redirect("/")
     return render_template("register.html", form=register_form)
     
 
