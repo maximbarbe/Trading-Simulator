@@ -59,7 +59,9 @@ def register():
 def login():
     login_form = LoginForm(request.form)
     if request.method == "POST" and login_form.validate_on_submit():
-        print("Login form submitted")
+        if (login_form.check_email_exists(login_form.email.data) and login_form.verify_password(login_form.email.data, login_form.password.data)):
+            print("Yes")
+            return redirect("/")
     return render_template("login.html", form=login_form)
 
 # Logout route, will remove the user from the session and redirect to base directory

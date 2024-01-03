@@ -4,6 +4,7 @@ import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import ValidationError
+from flask_bcrypt import check_password_hash
 from database import db
 from models import User
 
@@ -82,3 +83,10 @@ class LoginForm(FlaskForm):
         if user == None:
             self.email.errors += (ValidationError("Email does not exist."),)
         return False if user == None else True
+    
+    def verify_password(self, email, password):
+        user = User.query.filter_by(email = email).first()
+        if not check_password_hash(user.password, password):
+            self.password.errors += (ValidationError("Incorrect password"),)        
+            return False
+        return True
