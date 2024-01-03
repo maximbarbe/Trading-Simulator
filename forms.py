@@ -4,6 +4,8 @@ import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import ValidationError
+from database import db
+from models import User
 
 # Regular expression to check email validity
 email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')  
@@ -12,10 +14,11 @@ email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z
 # Password must contain a minimum of 8 characters, at least one letter, one number and and one special character
 password_regex = re.compile(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$")
 
+# Form used for the register page
 class registerForm(FlaskForm):
     name = StringField(label="Name", description="Name")
-    email = StringField(label="Email", validators=None, description="Email")
-    confirm_email = StringField(label="confirm_email", validators=None, description="Confirm email")
+    email = StringField(label="Email", description="Email")
+    confirm_email = StringField(label="confirm_email", description="Confirm email")
     password = PasswordField(label="Password", description="Password")
     submit = SubmitField(label="Submit")
     
@@ -60,3 +63,22 @@ class registerForm(FlaskForm):
             self.password.errors += (ValidationError("Password must be less than 100 characters"),)
             return False
         return True
+    
+    def check_user_already_exists(self, email):
+        user = User.query.filter_by(email=email).first()
+        if user != None:
+            self.email.errors += (ValidationError("Email already exists."),)
+        return True if user != None else False
+    
+# Form used for the login page
+class LoginForm(FlaskForm):
+    email = StringField(label="Email", description="Email")
+    password = PasswordField(label="Password", description="Password")
+    submit = SubmitField(label="Submit")
+
+    # Email verification
+    def check_email_exists(self, email):
+        user = User.query.filter_by(email=email).first()
+        if user == None:
+            self.email.errors += (ValidationError("Email does not exist."),)
+        return False if user == None else True
