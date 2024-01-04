@@ -26,7 +26,7 @@
                 </li>
                 {% else %}
                 <li class="navbar-li">
-                    <a class="navbar-element">Welcome back {{current_user.name}}</a>
+                    <a class="navbar-element">Welcome back {{current_user.name.upper()}}</a>
                 </li>
                 <li class="navbar-li">
                     <a class="navbar-element" href="{{url_for('logout')}}">

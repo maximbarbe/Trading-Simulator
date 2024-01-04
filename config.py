@@ -11,3 +11,5 @@ class Config:
     SECRET_KEY = env_values['SECRET']
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, "project.db") 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SESSION_PERMANENT = False
+    SESSION_TYPE = "filesystem"
